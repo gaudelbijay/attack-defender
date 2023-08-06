@@ -70,9 +70,16 @@ then run `rosrun pkg_py310 taker36.py`; it runs properly as
 [INFO] [1691364186.527978]: hello world 1691364186.5277922
 [INFO] [1691364186.628594]: hello world 1691364186.6283345
 [INFO] [1691364186.728617]: hello world 1691364186.7283173
+```
 
-``
 but runnning `rosrun pkg_py310 taker36.py` throws error for numpy and scipy because we did not install them in virtual pyenv3.10.
 
 this example shows the indendence of ros nodes with two PYTHONPATHs.
 
+Refs.
+
+http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+
+http://wiki.ros.org/rospy_tutorials/Tutorials/Makefile
+
+http://wiki.ros.org/rospy_tutorials/Tutorials/PythonPath
