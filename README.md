@@ -10,7 +10,7 @@ After this, publish denoised image from ``diffusion_model/denoised_image`` node,
 2. **Updating diffusion model and Attack detection code (August 6)** (done)
 Check code (diffusion_model)
 
-3. Two ROS node running from different python version (August 6)
+3. Two ROS node running from different python version (August 6) (DONE)
 
 4. Downgrading the diffusion model for python 3.6 (August 10)
 
