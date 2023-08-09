@@ -1,13 +1,11 @@
+# #!/home/saslab/diffusion_env/bin/python
+
 import torch
 import numpy as np
 import torchvision
-import torch.nn as nn
-from model import Unet
-from trainer import Trainer
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
-from gaussian_diffusion import GaussianDiffusion
-
+from denoising_diffusion_pytorch import Trainer, Unet, GaussianDiffusion
 
 class AttackDetection(object):
     def __init__(self, 
@@ -17,8 +15,8 @@ class AttackDetection(object):
                  sampling_timesteps=250, 
                  flash_attn=False, 
                  objective='pred_noise',
-                 train_root='./data/airsim/raw',
-                 test_root='./data/test',
+                 train_root='../data/raw/',
+                 test_root='../data/test/',
                  batch_size = 16,
                  device = "cuda") -> None:
         
@@ -32,6 +30,8 @@ class AttackDetection(object):
         self.test_root = test_root
         self.batch_size = batch_size
         self.device = device
+
+        self.model_init()
     
     def model_init(self,):
         self.model = Unet(
@@ -47,7 +47,11 @@ class AttackDetection(object):
         sampling_timesteps = self.sampling_timesteps,    # number of sampling timesteps (using ddim for faster inference [see citation for ddim paper])
         objective = self.objective,
         )
-        self.trainer = Trainer(self.diffusion, self.train_root)
+
+        self.trainer = Trainer(
+            diffusion_model=self.diffusion, 
+            folder=self.train_root,
+            )
         self.trainer.load(100) # 100 => last saved model
 
 
@@ -119,5 +123,5 @@ class AttackDetection(object):
 
 if __name__ == '__main__':
     attack_detection = AttackDetection()
-    attack_detection.model_init()
-    attack_detection.calculate_binary_accuracy(43)
+    accuracy, predicted_labels, ground_truth_labels, prob_scoresattack_detection = attack_detection.calculate_binary_accuracy(43)
+    print(accuracy)
