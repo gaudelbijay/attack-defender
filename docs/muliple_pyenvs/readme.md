@@ -20,8 +20,8 @@ here is what i've done:
 mkdir -p ~/catkin_nuts/src 
 
 catkin init
-catkin create pkg pkg_310 roscpp rospy std_msgs # create a pkg with for python 3.10 with a venv 
-catkin create pkg pkg_36 # create a pkg with for python 3.6 which is the system default
+catkin_create_pkg pkg_310 roscpp rospy std_msgs # create a pkg with for python 3.10 with a venv 
+catkin_create_pkg pkg_36 # create a pkg with for python 3.6 which is the system default
 cd pkg_310/src
 touch taker310.py
 touch taker36.py
