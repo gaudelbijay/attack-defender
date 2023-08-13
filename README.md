@@ -23,3 +23,13 @@ Check code (diffusion_model)
 8. Multiple Experiment and Improvement (September 8)
 
 9. Paper Writing (September 14)
+
+=======================
+- Following the replicability and reproducibility guidlines of [Responsible Conduct of Research (RCR)](https://about.citiprogram.org/series/responsible-conduct-of-research-rcr/) required for the government-funded research:
+
+- make this one into the form of ros package
+- add dependencies
+- add the traning details
+- use [rosbag](http://wiki.ros.org/rosbag) to record every experiment that will be used in the paper. Experiments should be named amd saved properly so there will be a one-to-one correspondence between the filed saved and the results presented in the paper. A readme file can be used to explain the data structure of experiments.
+- raw data and large files can be saved on OneDrive and referred to here.
+- not every file/code/data mentioned above will be published for public, but they should be saved for internal references and further follow-ups.
