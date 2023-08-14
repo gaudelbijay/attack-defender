@@ -1,3 +1,5 @@
+#https://github.com/lucidrains/denoising-diffusion-pytorch
+
 import math
 import copy
 from pathlib import Path
