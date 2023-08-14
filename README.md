@@ -24,7 +24,7 @@ Check code (diffusion_model)
 
 9. Paper Writing (September 14)
 
-=============================================================================================================================
+========================================================================================
 - Following the replicability and reproducibility guidelines of [Responsible Conduct of Research (RCR)](https://about.citiprogram.org/series/responsible-conduct-of-research-rcr/) outlined for the federally funded research projects:
 
 - make this one into the form of a ros package
@@ -34,15 +34,14 @@ Check code (diffusion_model)
 - raw data and large files can be saved on OneDrive and referred to here.
 - not every file/code/data mentioned above will be published for the public, but they should be saved for internal references and further follow-ups.
 
-=============================================================================================================================
-
+========================================================================================
 # How to run this code
 ```
 mkdir -p icra_ws/src && cd icra_ws/src
 
 git clone https://github.com/stargaze221/tcps_image_attack.git [refer to this link and make this code running first](https://github.com/stargaze221/tcps_image_attack)
 
-git clone https://github.com/gaudelbijay/imageAttackDetectionAndDenoising.git
+git clone https://github.com/gaudelbijay/attack-defender.git
 
 git clone https://github.com/ros-perception/vision_opencv.git -b melodic
 
@@ -65,7 +64,7 @@ source diffusion_env/bin/activate
 
 pip install -r requirements.txt
 
-cd <path to icra_ws>/src/imageAttackDetectionAndDenoising/defender/src/diffusion_model
+cd <path to icra_ws>/src/attack-defender/src/diffusion_model
 
 mkdir results
 
