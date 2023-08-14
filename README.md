@@ -2,21 +2,21 @@
 
 # TO-DO
 
-1. **Pipeline to feed/feedback diffusion model (August 6)** (done)
+1. **Pipeline to feed/feedback diffusion model (August 6)** (DONE)
 
 Subscribe ``/attack_generator_node/attacked_image`` ros node and feed the images from this node to diffusion model. 
 After this, publish denoised image from ``diffusion_model/denoised_image`` node, this will publish denoised image continously. In ``model_yolo.py`` replace sub_attacked_image (line70) to subs_denoised_image by subscribing ``/diffusion_model/denoised_image``
 
-2. **Updating diffusion model and Attack detection code (August 6)** (done)
+2. **Updating diffusion model and Attack detection code (August 6)** (DONE)
 Check code (diffusion_model)
 
 3. Two ROS nodes running from different Python versions (August 6) (DONE)
 
-4. Downgrading the diffusion model for Python 3.6 (August 10)
+4. Downgrading the diffusion model for Python 3.6 (August 10) (Escaped by using 3)
 
 5. Write an email to Hyung-Jin Yoon for the updated code (August 7 (a little bit flexible)) -- discussed with Hamid on Friday. 
 
-6. Incorporating diffusion model with current simulation (August 12)
+6. Incorporating diffusion model with current simulation (August 12) (DONE)
 
 7. Implementing different Attack models (August 30)
 
