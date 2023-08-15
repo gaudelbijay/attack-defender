@@ -39,7 +39,7 @@ Check code (diffusion_model)
 ```
 mkdir -p icra_ws/src && cd icra_ws/src
 
-git clone https://github.com/stargaze221/tcps_image_attack.git [refer to this link and make this code running first](https://github.com/stargaze221/tcps_image_attack)
+git clone https://github.com/stargaze221/tcps_image_attack.git # [refer to this link](https://github.com/stargaze221/tcps_image_attack)
 
 git clone https://github.com/gaudelbijay/attack-defender.git
 
@@ -54,7 +54,7 @@ source  devel/setup.bash
 roslaunch iros_image_attack run.launch
 
 ```
-Setup environment for the defender model [we need to setup different python (version: 3.10) virtual environment]. Install all the requirements from `requirements.txt`
+Setup environment for the defender model *we need to setup different python (version: 3.10) virtual environment*. Install all the requirements from `requirements.txt`
 
 ```
 
@@ -68,7 +68,7 @@ cd <path to icra_ws>/src/attack-defender/src/diffusion_model
 
 mkdir results
 
-! copy model-100.pt> from this [link](https://stevens0-my.sharepoint.com/personal/mbahrami_stevens_edu/_layouts/15/onedrive.aspx?ct=1692041444591&or=OWA%2DNT&cid=ffda05e7%2D3cac%2D4eb2%2D4c48%2D49021369a39d&ga=1&WSL=1&id=%2Fpersonal%2Fmbahrami%5Fstevens%5Fedu%2FDocuments%2FAdv%5Fimage%5Fatk%5Fdetection%2Fresults) into results folder.
+# copy model-100.pt> from this [link](https://stevens0-my.sharepoint.com/personal/mbahrami_stevens_edu/_layouts/15/onedrive.aspx?ct=1692041444591&or=OWA%2DNT&cid=ffda05e7%2D3cac%2D4eb2%2D4c48%2D49021369a39d&ga=1&WSL=1&id=%2Fpersonal%2Fmbahrami%5Fstevens%5Fedu%2FDocuments%2FAdv%5Fimage%5Fatk%5Fdetection%2Fresults) into results folder.
 
 python node_denoising.py
 ```
