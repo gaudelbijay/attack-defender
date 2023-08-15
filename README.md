@@ -47,13 +47,6 @@ git clone https://github.com/ros-perception/vision_opencv -b melodic
 
 cd ..
 
-catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
-
-source  devel/setup.bash
-# set-up the AirSim and simulation environment settings as described in iros_image_attack package.
-# run the ./Blocks.sh environemnt. Then
-roslaunch iros_image_attack run.launch
-
 ```
 Setup environment for the defender model *we need to setup different python (version: 3.10) virtual environment*. Install all the requirements from `requirements.txt`
 
@@ -71,6 +64,29 @@ pip install -r requirements.txt
 mkdir results
 
 # copy model-100.pt> from this [link](https://stevens0-my.sharepoint.com/personal/mbahrami_stevens_edu/_layouts/15/onedrive.aspx?ct=1692041444591&or=OWA%2DNT&cid=ffda05e7%2D3cac%2D4eb2%2D4c48%2D49021369a39d&ga=1&WSL=1&id=%2Fpersonal%2Fmbahrami%5Fstevens%5Fedu%2FDocuments%2FAdv%5Fimage%5Fatk%5Fdetection%2Fresults) into results folder.
+```
 
+### Build and train the attaker model
+```
+# In another terminal 
+# cd ~/icra_ws
+catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
+
+source  devel/setup.bash
+
+# set-up the AirSim and simulation environment settings as described in iros_image_attack package.
+# run the ./Blocks.sh environemnt. Then train using
+
+roslaunch iros_image_attack train.launch
+```
+
+### runtime
+```
+source diffusion_env/bin/activate
 python node_denoising.py
+```
+
+```
+# in another terminal
+roslaunch iros_image_attack run.launch
 ```
