@@ -39,18 +39,19 @@ Check code (diffusion_model)
 ```
 mkdir -p icra_ws/src && cd icra_ws/src
 
-git clone https://github.com/stargaze221/tcps_image_attack.git [refer to this link and make this code running first](https://github.com/stargaze221/tcps_image_attack)
+git clone https://github.com/stargaze221/iros_image_attack
 
-git clone https://github.com/gaudelbijay/attack-defender.git
+git clone https://github.com/gaudelbijay/attack-defender
 
-git clone https://github.com/ros-perception/vision_opencv.git -b melodic
+git clone https://github.com/ros-perception/vision_opencv -b melodic
 
 cd ..
 
 catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 
 source  devel/setup.bash
-
+# set-up the AirSim and simulation environment settings as described in iros_image_attack package.
+# run the ./Blocks.sh environemnt. Then
 roslaunch iros_image_attack run.launch
 
 ```
