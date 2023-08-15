@@ -39,7 +39,7 @@ Check code (diffusion_model)
 ```
 mkdir -p icra_ws/src && cd icra_ws/src
 
-git clone https://github.com/r-bahrami/iros_image_attack
+git clone https://github.com/stargaze221/iros_image_attack
 
 git clone https://github.com/gaudelbijay/attack-defender
 
@@ -63,7 +63,8 @@ python3.10 -m venv diffusion_env
 
 source diffusion_env/bin/activate
 
-cd <path to icra_ws>/src/attack-defender/src/diffusion_model
+
+cd <path to icra_ws>/src/attack-defender
 
 pip install -r requirements.txt
 
