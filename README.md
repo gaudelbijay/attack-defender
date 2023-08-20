@@ -109,6 +109,6 @@ roslaunch iros_image_attack run.launch
 
 ## Acknowledgement
 
-We used [denoising-diffusion-pytorch](https://github.com/lucidrains/denoising-diffusion-pytorch) repo for the implementation of the attack-defender. 
+We used [denoising-diffusion-pytorch](https://github.com/lucidrains/denoising-diffusion-pytorch) repo for the implementation of diffusion model of the attack-defender. 
 
 We used [iros_image_attack](https://github.com/r-bahrami/iros_image_attack) repo for the reinforcement-based attacker. 
