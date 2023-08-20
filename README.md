@@ -7,22 +7,22 @@
 Subscribe ``/attack_generator_node/attacked_image`` ros node and feed the images from this node to diffusion model. 
 After this, publish denoised image from ``diffusion_model/denoised_image`` node, this will publish denoised image continously. In ``model_yolo.py`` replace sub_attacked_image (line70) to subs_denoised_image by subscribing ``/diffusion_model/denoised_image``
 
-2. **Updating diffusion model and Attack detection code (August 6)** (DONE)
+2. **Updating diffusion model and Attack detection code (August 6) (DONE)**
 Check code (diffusion_model)
 
-3. Two ROS nodes running from different Python versions (August 6) (DONE)
+3. **Two ROS nodes running from different Python versions (August 6) (DONE)**
 
-4. Downgrading the diffusion model for Python 3.6 (August 10) (Escaped by using 3)
+4. **Downgrading the diffusion model for Python 3.6 (August 10) (Escaped by using 3)**
 
-5. Write an email to Hyung-Jin Yoon for the updated code (August 7 (a little bit flexible)) -- discussed with Hamid on Friday. 
+5. **Write an email to Hyung-Jin Yoon for the updated code.**
 
-6. Incorporating diffusion model with current simulation (August 12) (DONE)
+6. **Incorporating diffusion model with current simulation (August 12) (DONE)**
 
-7. Implementing different Attack models (August 30)
+7. **Implementing different Attack models** 
 
-8. Multiple Experiment and Improvement (September 8)
+8. **Multiple Experiment and Improvement**
 
-9. Paper Writing (September 14)
+9. **Paper Writing**
 
 ========================================================================================
 - Following the replicability and reproducibility guidelines of [Responsible Conduct of Research (RCR)](https://about.citiprogram.org/series/responsible-conduct-of-research-rcr/) outlined for the federally funded research projects:
