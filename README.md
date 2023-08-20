@@ -9,8 +9,8 @@
 
 For integration to take place, in `model_yolo.py`, uncomment the [line 71](https://github.com/r-bahrami/iros_image_attack/blob/main/scripts/node_yolo.py#L71C7-L71C101) and comment line 70. This enables the simulation to run using the denoised images.
 
-- [ ] write the code for
-- [ ] Check if we can incorporate the resuls of Lp and non-Lp attak models as in Perceptual Adversarial Training ([PAT](https://par.nsf.gov/servlets/purl/10315554)).
+- [ ] write the code for the integration of the Carlini's [attaker model](https://doi.org/10.1109/SP.2017.49).
+- [ ] Check if we can incorporate the results of Lp and non-Lp attak models as in Perceptual Adversarial Training ([PAT](https://par.nsf.gov/servlets/purl/10315554)).
 - [ ] integrate the FFT code for online attack detection. 
 - [ ] update the FFT code for online attack detection in 2D space of Height x Width where we have a better parameterized threshold for detection. 
  
@@ -104,9 +104,11 @@ python node_denoising.py
 roslaunch iros_image_attack run.launch
 ```
 
-========================================================================================
+
 
 
 ## Acknowledgement
 
+We used [denoising-diffusion-pytorch](https://github.com/lucidrains/denoising-diffusion-pytorch) repo for the implementation of the attack-defender. 
 
+We used [iros_image_attack](https://github.com/r-bahrami/iros_image_attack) repo for the reinforcement-based attacker. 
