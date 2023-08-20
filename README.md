@@ -2,6 +2,8 @@
 
 # TO-DO
 
+- [ ] compare the code with this [commit](https://github.com/gaudelbijay/attack-defender/commit/c4eb10ebbdf936bd645dca971ac7de5dde8283d0) to figure out the encoding bug.
+
 #### Integration with attack models.
 - [x]  The reinforcement-based attacker of the [RAL-paper](https://doi.org/10.1109/LRA.2023.3280813) based on the forked [iros_image_attack](https://github.com/r-bahrami/iros_image_attack) repository.
       
