@@ -57,14 +57,14 @@ source diffusion_env/bin/activate
 cd <path to defender>/src/attack-defender
 pip install -r requirements.txt
 
-mkdir results
+cd src/diffusion_model/ && mkdir results
 ```
 Download the trained parameters of diffusion-based denoiser, named `model-100.pt` from this [link](https://stevens0-my.sharepoint.com/:u:/g/personal/mbahrami_stevens_edu/ERYqWUevbeRKoVV6buwxs7ABo4PeSoxzI3Bdlik3iyE-uA?e=bOYAsr) and copy into the `results` folder.
 
 ### Build and train the RL-based attaker model
 ```
 # in terminal 1
-# cd ~/defender_ws
+# cd ~/defender_ws/
 
 catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 
