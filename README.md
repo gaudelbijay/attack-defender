@@ -36,10 +36,10 @@ Create a catkin workspace and download the repositories as follows
 ```
 # in terminal 1
 
-mkdir -p defender_ws/src && cd defender/src
+mkdir -p ~/defender_ws/src && cd ~/defender_ws/src
 
-git clone https://github.com/stargaze221/iros_image_attack
-git clone https://github.com/gaudelbijay/attack-defender
+git clone https://github.com/r-bahrami/iros_image_attack.git
+git clone https://github.com/gaudelbijay/attack-defender.git
 git clone https://github.com/ros-perception/vision_opencv -b melodic
 
 cd ..
@@ -62,7 +62,7 @@ Download the trained parameters of diffusion-based denoiser, named `model-100.pt
 ### Build and train the RL-based attaker model
 ```
 # in terminal 1
-# cd ~/defender
+# cd ~/defender_ws
 
 catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 
@@ -80,6 +80,8 @@ Run the attack-defender,
 # in terminal 2
 # source diffusion_env/bin/activate
 
+cd ~/defender_ws/src/attack-defender/src/diffusion_model
+
 python node_denoising.py
 ```
 
@@ -96,6 +98,8 @@ After 10 episodes, the code will stop and the trained model will be saved. After
 ```
 # in terminal 2
 # source diffusion_env/bin/activate
+# cd ~/defender_ws/src/attack-defender/src/diffusion_model
+
 python node_denoising.py
 ```
 
@@ -103,9 +107,6 @@ python node_denoising.py
 # in terminal 1
 roslaunch iros_image_attack run.launch
 ```
-
-
-
 
 ## Acknowledgement
 
