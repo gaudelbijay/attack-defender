@@ -36,7 +36,7 @@ Create a catkin workspace and download the repositories as follows
 ```
 # in terminal 1
 
-mkdir -p icra_ws/src && cd icra_ws/src
+mkdir -p defender_ws/src && cd defender/src
 
 git clone https://github.com/stargaze221/iros_image_attack
 git clone https://github.com/gaudelbijay/attack-defender
@@ -52,7 +52,7 @@ cd ..
 
 python3.10 -m venv diffusion_env
 source diffusion_env/bin/activate
-cd <path to icra_ws>/src/attack-defender
+cd <path to defender>/src/attack-defender
 pip install -r requirements.txt
 
 mkdir results
@@ -62,7 +62,7 @@ Download the trained parameters of diffusion-based denoiser, named `model-100.pt
 ### Build and train the RL-based attaker model
 ```
 # in terminal 1
-# cd ~/icra_ws
+# cd ~/defender
 
 catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 
