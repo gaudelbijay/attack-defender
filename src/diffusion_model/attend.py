@@ -43,7 +43,7 @@ class Attend(nn.Module):
         self.attn_dropout = nn.Dropout(dropout)
 
         self.flash = flash
-        # assert not (flash and version.parse(torch.__version__) < version.parse('2.0.0')), 'in order to use flash attention, you must be using pytorch 2.0 or above'
+        assert not (flash and version.parse(torch.__version__) < version.parse('2.0.0')), 'in order to use flash attention, you must be using pytorch 2.0 or above'
 
         # determine efficient attention configs for cuda and cpu
 
@@ -67,22 +67,18 @@ class Attend(nn.Module):
 
         q, k, v = map(lambda t: t.contiguous(), (q, k, v))
 
-        # Compute the dot products
-        scores = torch.einsum("bhqd,bhkd->bhqk", [q, k])
+        # Check if there is a compatible device for flash attention
 
-        # Scale the dot products
-        scores /= q.shape[-1] ** 0.5
+        config = self.cuda_config if is_cuda else self.cpu_config
 
-        # Apply the softmax
-        attn = torch.nn.functional.softmax(scores, dim=-1)
+        # pytorch 2.0 flash attn: q, k, v, mask, dropout, causal, softmax_scale
 
-        # Apply dropout
-        if self.training and self.dropout > 0:
-            attn = self.attn_dropout(attn)
+        with torch.backends.cuda.sdp_kernel(**config._asdict()):
+            out = F.scaled_dot_product_attention(
+                q, k, v,
+                dropout_p = self.dropout if self.training else 0.
+            )
 
-        # Multiply by the value tensor and sum over the last dimension
-        out = torch.einsum("bhqk,bhkd->bhqd", [attn, v])
-        
         return out
 
     def forward(self, q, k, v):
