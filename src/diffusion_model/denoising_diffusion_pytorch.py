@@ -1,4 +1,4 @@
-#https://github.com/lucidrains/denoising-diffusion-pytorch
+# code is copied and modified from: https://github.com/lucidrains/denoising-diffusion-pytorch
 
 import math
 import copy
@@ -28,7 +28,8 @@ from ema_pytorch import EMA
 from accelerate import Accelerator
 
 from attend import Attend
-# from fid_evaluation import FIDEvaluation
+from fid_evaluation import FIDEvaluation
+
 
 # constants
 
@@ -858,7 +859,7 @@ class Trainer(object):
         mixed_precision_type = 'fp16',
         split_batches = True,
         convert_image_to = None,
-        calculate_fid = False,
+        calculate_fid = True,
         inception_block_idx = 2048,
         max_grad_norm = 1.,
         num_fid_samples = 50000,
@@ -877,6 +878,7 @@ class Trainer(object):
 
         self.model = diffusion_model
         self.channels = diffusion_model.channels
+        is_ddim_sampling = diffusion_model.is_ddim_sampling
 
         # sampling and training hyperparameters
 
@@ -897,9 +899,9 @@ class Trainer(object):
 
         self.ds = Dataset(folder, self.image_size, augment_horizontal_flip = augment_horizontal_flip, convert_image_to = convert_image_to)
 
-        assert len(self.ds) >= 0, 'you should have at least 1 images in your folder. at least 10k images recommended'
+        assert len(self.ds) >= 100, 'you should have at least 100 images in your folder. at least 10k images recommended'
 
-        dl = DataLoader(self.ds, batch_size = train_batch_size, shuffle = True, pin_memory = True, num_workers = cpu_count()-2)
+        dl = DataLoader(self.ds, batch_size = train_batch_size, shuffle = True, pin_memory = True, num_workers = cpu_count())
 
         dl = self.accelerator.prepare(dl)
         self.dl = cycle(dl)
@@ -927,31 +929,31 @@ class Trainer(object):
 
         # FID-score computation
 
-        # self.calculate_fid = calculate_fid and self.accelerator.is_main_process
+        self.calculate_fid = calculate_fid and self.accelerator.is_main_process
 
-        # if self.calculate_fid:
-        #     if not self.model.is_ddim_sampling:
-        #         self.accelerator.print(
-        #             "WARNING: Robust FID computation requires a lot of generated samples and can therefore be very time consuming."\
-        #             "Consider using DDIM sampling to save time."
-        #         )
-            # self.fid_scorer = FIDEvaluation(
-            #     batch_size=self.batch_size,
-            #     dl=self.dl,
-            #     sampler=self.ema.ema_model,
-            #     channels=self.channels,
-            #     accelerator=self.accelerator,
-            #     stats_dir=results_folder,
-            #     device=self.device,
-            #     num_fid_samples=num_fid_samples,
-            #     inception_block_idx=inception_block_idx
-            # )
+        if self.calculate_fid:
+            if not is_ddim_sampling:
+                self.accelerator.print(
+                    "WARNING: Robust FID computation requires a lot of generated samples and can therefore be very time consuming."\
+                    "Consider using DDIM sampling to save time."
+                )
+            self.fid_scorer = FIDEvaluation(
+                batch_size=self.batch_size,
+                dl=self.dl,
+                sampler=self.ema.ema_model,
+                channels=self.channels,
+                accelerator=self.accelerator,
+                stats_dir=results_folder,
+                device=self.device,
+                num_fid_samples=num_fid_samples,
+                inception_block_idx=inception_block_idx
+            )
 
-        # if save_best_and_latest_only:
-        #     assert calculate_fid, "`calculate_fid` must be True to provide a means for model evaluation for `save_best_and_latest_only`."
-        #     self.best_fid = 1e10 # infinite
+        if save_best_and_latest_only:
+            assert calculate_fid, "`calculate_fid` must be True to provide a means for model evaluation for `save_best_and_latest_only`."
+            self.best_fid = 1e10 # infinite
 
-        # self.save_best_and_latest_only = save_best_and_latest_only
+        self.save_best_and_latest_only = save_best_and_latest_only
 
     @property
     def device(self):
@@ -991,6 +993,8 @@ class Trainer(object):
     def train(self):
         accelerator = self.accelerator
         device = accelerator.device
+        loss_list = list()
+        fid_list = list()
 
         with tqdm(initial = self.step, total = self.train_num_steps, disable = not accelerator.is_main_process) as pbar:
 
@@ -1010,6 +1014,7 @@ class Trainer(object):
 
                 accelerator.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
                 pbar.set_description(f'loss: {total_loss:.4f}')
+                loss_list.append(total_loss)
 
                 accelerator.wait_for_everyone()
 
@@ -1036,17 +1041,24 @@ class Trainer(object):
 
                         # whether to calculate fid
 
-                        # if self.calculate_fid:
-                        #     fid_score = self.fid_scorer.fid_score()
-                        #     accelerator.print(f'fid_score: {fid_score}')
-                        # if self.save_best_and_latest_only:
-                        #     if self.best_fid > fid_score:
-                        #         self.best_fid = fid_score
-                        #         self.save("best")
-                        #     self.save("latest")
-                        # else:
-                        #     self.save(milestone)
+                        if self.calculate_fid:
+                            fid_score = self.fid_scorer.fid_score()
+                            accelerator.print(f'fid_score: {fid_score}')
+                            fid_list.append(fid_score)
+                        if self.save_best_and_latest_only:
+                            if self.best_fid > fid_score:
+                                self.best_fid = fid_score
+                                self.save("best")
+                            self.save("latest")
+                        else:
+                            self.save(milestone)
 
                 pbar.update(1)
+
+        with open("loss.txt", "w") as loss_to_list:
+            loss_to_list.write(str(loss_list))
+
+        with open("fid.txt", "w") as fid_score_to_list:
+            fid_score_to_list.write(str(loss_list))
 
         accelerator.print('training complete')
