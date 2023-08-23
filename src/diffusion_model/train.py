@@ -15,7 +15,7 @@ diffusion = GaussianDiffusion(
 
 trainer = Trainer(
     diffusion,
-    '../data/airsim/raw',
+    '../data/raw',
     train_batch_size = 8,
     train_lr = 8e-5,
     train_num_steps = 100000,         # total training steps
